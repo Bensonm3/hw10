@@ -38,17 +38,15 @@ app.get("/api/notes", (req, res) =>{
 });
 
 app.post("/api/notes", (req, res) =>{
-    console.log("Line 41 "+JSON.stringify(req.body));
     var newNote = req.body
     readFileAsync("./db/db.json", 'utf8').then((savedNotes) =>{
         savedNotes = JSON.parse(savedNotes);
-        console.log("line 45"+savedNotes);
         savedNotes.push(newNote);
         // Appends the number of unique notes to the object
         savedNotes[savedNotes.length - 1].id=savedNotes.length-1;
         writeFileAsync("./db/db.json", JSON.stringify(savedNotes))
     })
-    res.send("Notes file Created!")
+    res.send("Notes file Appended")
 })
 
 app.delete("/api/notes/:id", (req, res) =>{

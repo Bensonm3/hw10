@@ -22,6 +22,7 @@ var saveNote = function(note) {
     data: note,
     method: "POST"
   });
+  
 };
 
 // A function for deleting a note from the db
@@ -36,7 +37,7 @@ var deleteNote = function(id) {
 var renderActiveNote = function() {
   $saveNoteBtn.hide();
 
-  if (activeNote.id) {
+  if (activeNote.id || activeNote.id ===0) {
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
@@ -108,16 +109,19 @@ var renderNoteList = function(notes) {
   $noteList.empty();
 
   var noteListItems = [];
-
+  notes = JSON.parse(notes);
   for (var i = 0; i < notes.length; i++) {
+    console.log(notes.length);
+    console.log(notes);
     var note = notes[i];
-
+    console.log(note);
     var $li = $("<li class='list-group-item'>").data(note);
+    console.log($li);
     var $span = $("<span>").text(note.title);
     var $delBtn = $(
       "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
     );
-
+      console.log("126 "+$li);
     $li.append($span, $delBtn);
     noteListItems.push($li);
   }
